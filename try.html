@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Timeline Projects with Hover Previews</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <style>
+    .timeline-projects-container {
+      font-family: "Mozilla Text", sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #f9f9fb;
+    }
+
+    .timeline-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 30px;
+      gap: 10px;
+    }
+
+    .timeline-header h2 {
+      font-size: 1.2rem;
+      color: #030309;
+      flex: 1;
+      margin: 0;
+    }
+
+    .timeline-projects {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #030309;
+      margin-top: 10px;
+      padding: 20px 0;
+      position: relative;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+
+    .timeline-projects:hover {
+      background: rgba(253, 96, 26, 0.05);
+    }
+
+    .timeline-year {
+      font-size: 1rem;
+      color: #030309;
+      flex: 1;
+    }
+
+    .timeline-project-name {
+      flex: 2;
+    }
+
+    .timeline-project-name a {
+      text-decoration: none;
+      color: #030309;
+      transition: color ease .2s;
+    }
+
+    .timeline-project-name a:hover {
+      color: #FD601A;
+    }
+
+    .timeline-project-links {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .timeline-project-links a {
+      text-decoration: none;
+      background: #FD601A;
+      color: #FFFCF3;
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      display: inline-block;
+    }
+
+    /* Popup */
+    .image-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      opacity: 0;
+      scale: 0.9;
+      transform-origin: top left;
+      z-index: 9999;
+      will-change: transform, opacity;
+      display: flex;
+    }
+
+    .images-wrapper {
+      display: flex;
+      gap: 8px;
+      /* background: rgba(30, 30, 35, 0.92); */
+      padding: 12px;
+      border-radius: 14px;
+      /* box-shadow: 0 35px 90px rgba(0,0,0,0.35); */
+      align-items: center;
+      position: relative;
+    }
+
+    .images-wrapper img {
+      display: block;
+      /* width: 140px; */
+      height: 150px;
+      object-fit: cover;
+      border-radius: 2px;
+      /* border: 2px solid #fff; */
+      flex-shrink: 0;
+    }
+
+    .image-popup::after {
+      /* content: ""; */
+      position: absolute;
+      top: -7px;
+      left: 16px;
+      border: 7px solid transparent;
+      border-bottom-color: rgba(30, 30, 35, 0.92);
+    }
+
+    .popup-title {
+      position: absolute;
+      top: -28px;
+      left: 0;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+  
+  </style>
+</head>
+<body>
+
+  <div class="timeline-projects-container">
+    <div class="timeline-header">
+      <h2 style="flex:1;">Year</h2>
+      <h2 style="flex:2;">Projects</h2>
+      <h2 style="flex:1; text-align:right;">Links</h2>
+    </div>
+
+    <!-- Seven sample project rows with different image sets -->
+    <div class="timeline-projects" data-title="WebKit" data-images='[
+      "images/project-mokup.png",
+      "images/project-mokup.png",
+      "images/project-mokup.png"
+    ]'>
+      <div class="timeline-year">2025</div>
+      <div class="timeline-project-name">
+        <a href="#">WebKit</a>
+      </div>
+      <div class="timeline-project-links">
+        <a href="#">View Project</a>
+      </div>
+    </div>
+
+    <div class="timeline-projects" data-title="Atlas" data-images='[
+      "https://via.placeholder.com/140x90?text=Atlas+A",
+      "https://via.placeholder.com/140x90?text=Atlas+B"
+    ]'>
+      <div class="timeline-year">2024</div>
+      <div class="timeline-project-name">
+        <a href="#">Atlas</a>
+      </div>
+      <div class="timeline-project-links">
+        <a href="#">View Project</a>
+      </div>
+    </div>
+
+    <div class="timeline-projects" data-title="Nova" data-images='[
+      "https://via.placeholder.com/140x90?text=Nova+1",
+      "https://via.placeholder.com/140x90?text=Nova+2",
+      "https://via.placeholder.com/140x90?text=Nova+3",
+      "https://via.placeholder.com/140x90?text=Nova+4"
+    ]'>
+      <div class="timeline-year">2023</div>
+      <div class="timeline-project-name">
+        <a href="#">Nova</a>
+      </div>
+      <div class="timeline-project-links">
+        <a href="#">View Project</a>
+      </div>
+    </div>
+
+    <div class="timeline-projects" data-title="Pulse" data-images='[
+      "https://via.placeholder.com/140x90?text=Pulse+X",
+      "https://via.placeholder.com/140x90?text=Pulse+Y",
+      "https://via.placeholder.com/140x90?text=Pulse+Z"
+    ]'>
+      <div class="timeline-year">2022</div>
+      <div class="timeline-project-name">
+        <a href="#">Pulse</a>
+      </div>
+      <div class="timeline-project-links">
+        <a href="#">View Project</a>
+      </div>
+    </div>
+
+    <div class="timeline-projects" data-title="Orion" data-images='[
+      "https://via.placeholder.com/140x90?text=Orion+1"
+    ]'>
+      <div class="timeline-year">2021</div>
+      <div class="timeline-project-name">
+        <a href="#">Orion</a>
+      </div>
+      <div class="timeline-project-links">
+        <a href="#">View Project</a>
+      </div>
+    </div>
+
+    <div class="timeline-projects" data-title="Zenith" data-images='[
+      "https://via.placeholder.com/140x90?text=Zenith+1",
+      "https://via.placeholder.com/140x90?text=Zenith+2"
+    ]'>
+      <div class="timeline-year">2020</div>
+      <div class="timeline-project-name">
+        <a href="#">Zenith</a>
+      </div>
+      <div class="timeline-project-links">
+        <a href="#">View Project</a>
+      </div>
+    </div>
+
+    <div class="timeline-projects" data-title="Echo" data-images='[
+      "https://via.placeholder.com/140x90?text=Echo+1",
+      "https://via.placeholder.com/140x90?text=Echo+2",
+      "https://via.placeholder.com/140x90?text=Echo+3"
+    ]'>
+      <div class="timeline-year">2019</div>
+      <div class="timeline-project-name">
+        <a href="#">Echo</a>
+      </div>
+      <div class="timeline-project-links">
+        <a href="#">View Project</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared popup -->
+  <div class="image-popup" aria-hidden="true">
+    <div class="popup-title"></div>
+    <div class="images-wrapper"></div>
+  </div>
+
+  <script>
+    function safeParse(str, fallback) {
+      try { return JSON.parse(str); }
+      catch { return fallback; }
+    }
+
+    const popup = document.querySelector('.image-popup');
+    const imagesWrapper = popup.querySelector('.images-wrapper');
+    const titleEl = popup.querySelector('.popup-title');
+
+    let current = null;
+    let moveListener = null;
+    let showTimeout = null;
+
+    function showPopup(proj, evt) {
+      const images = safeParse(proj.getAttribute('data-images') || '[]', []);
+      const title = proj.getAttribute('data-title') || '';
+
+      if (!images.length) return;
+
+      imagesWrapper.innerHTML = '';
+      images.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = title + ' preview';
+        imagesWrapper.appendChild(img);
+      });
+      titleEl.textContent = title;
+
+      gsap.set(popup, {
+        x: evt.clientX + 18,
+        y: evt.clientY + 18,
+        scale: 0.9,
+        opacity: 0
+      });
+
+      gsap.killTweensOf(popup);
+      gsap.to(popup, {
+        duration: 0.35,
+        opacity: 1,
+        scale: 1,
+        ease: "power3.out",
+        onStart() {
+          popup.setAttribute('aria-hidden', 'false');
+        }
+      });
+
+      moveListener = (e) => {
+        gsap.to(popup, {
+          duration: 0.28,
+          x: e.clientX + 18,
+          y: e.clientY + 18,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      };
+      window.addEventListener('mousemove', moveListener);
+    }
+
+    function hidePopup() {
+      clearTimeout(showTimeout);
+      gsap.killTweensOf(popup);
+      gsap.to(popup, {
+        duration: 0.25,
+        opacity: 0,
+        scale: 0.9,
+        ease: "power2.in",
+        onComplete() {
+          popup.setAttribute('aria-hidden', 'true');
+          imagesWrapper.innerHTML = '';
+          titleEl.textContent = '';
+        }
+      });
+      if (moveListener) {
+        window.removeEventListener('mousemove', moveListener);
+        moveListener = null;
+      }
+      current = null;
+    }
+
+    // Delegated hover logic
+    document.body.addEventListener('mouseenter', (e) => {
+      const proj = e.target.closest('.timeline-projects');
+      if (!proj) return;
+      clearTimeout(showTimeout);
+      showTimeout = setTimeout(() => {
+        current = proj;
+        showPopup(proj, e);
+      }, 60);
+    }, true);
+
+    document.body.addEventListener('mouseleave', (e) => {
+      const proj = e.target.closest('.timeline-projects');
+      if (!proj) return;
+      if (current === proj) {
+        hidePopup();
+      }
+    }, true);
+
+    document.body.addEventListener('mousemove', (e) => {
+      if (!current) return;
+      const over = e.target.closest('.timeline-projects');
+      if (over !== current) {
+        hidePopup();
+      }
+    });
+  </script>
+</body>
+</html>
